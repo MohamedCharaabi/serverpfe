@@ -57,36 +57,36 @@ router.post('/login', async (req, res) => {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 
 
-try {
-  
-      //store the token on cookies
-      res.cookie('jwt', token, {
-        // domain: '/',
-       // signed: true,
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000, //1 day
-        // sameSite: 'lax',
-        // secure: true
-         sameSite: 'none',
-         secure: true
-    })
-    res.cookie('cool', 'cool', {
-     //   signed: true,
-       // httpOnly: false,
-        maxAge: 24 * 60 * 60 * 1000,
-    })
+    try {
+
+        //store the token on cookies
+        res.cookie('jwt', token, {
+            // domain: '/',
+            // signed: true,
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000, //1 day
+            // sameSite: 'lax',
+            // secure: true
+            sameSite: 'none',
+            secure: true
+        })
+        res.cookie('cool', 'cool', {
+            //   signed: true,
+            // httpOnly: false,
+            maxAge: 24 * 60 * 60 * 1000,
+        })
 
 
 
 
-    res.status(200).send({ message: 'succcess' });
+        res.status(200).send({ message: 'succcess' });
 
-} catch (error) {
-    res.status(401).send({ message: `${error}` });
-    
-}
+    } catch (error) {
+        res.status(401).send({ message: `${error}` });
 
-  
+    }
+
+
 
 }
 );
@@ -120,25 +120,36 @@ router.get('/user', async (req, res) => {
     }
 }
 )
-router.post('/logout', async (req, res) => {
-     res.header("Access-Control-Allow-Headers", "*");
-     res.header('Access-Control-Allow-Credentials', true);
-     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+// router.post('/logout', async (req, res) => {
+//      res.header("Access-Control-Allow-Headers", "*");
+//      res.header('Access-Control-Allow-Credentials', true);
+//      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 
+//     try {
+//         const cookie = req.cookies['jwt'];
+
+//         res.cookie('jwt', cookie, {  
+//             sameSite: 'none',
+//         secure: true,
+//           maxAge: 0,
+//            httpOnly: true }); //remove the cookie by setting the age to 0
+//         res.cookie('cool', { maxAge: 0 });
+//         res.send({ message: ' log out success' })
+//     } catch (error) {
+//         res.sent({ erroer: error })
+//     }
+// });
+
+router.get('/logout', async (req, res) => {
     try {
-        const cookie = req.cookies['jwt'];
-
-        res.cookie('jwt', cookie, {  
-            sameSite: 'none',
-        secure: true,
-          maxAge: 0,
-           httpOnly: true }); //remove the cookie by setting the age to 0
-        res.cookie('cool', { maxAge: 0 });
-        res.send({ message: ' log out success' })
+        res.cookie('jwt', '', { maxAge: 1 });
+        // res.redirect('/signin');
+        res.send({ message: 'logout seccess' })
     } catch (error) {
-        res.sent({ erroer: error })
+        res.send({ message: 'logout failed' })
+
     }
-});
+})
 
 
 
