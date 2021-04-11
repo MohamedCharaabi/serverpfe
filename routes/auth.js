@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000, //1 day
             // sameSite: 'lax',
             // secure: true
-            // sameSite: 'none',
+            sameSite: 'none',
             // secure: true
         })
         res.cookie('cool', 'cool', {
