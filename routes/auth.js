@@ -63,12 +63,12 @@ router.post('/login', async (req, res) => {
         res.cookie('jwt', token, {
             // domain: '/',
             // signed: true,
-            httpOnly: true,
+            // httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000, //1 day
             // sameSite: 'lax',
             // secure: true
-            sameSite: 'none',
-            secure: true
+            // sameSite: 'none',
+            // secure: true
         })
         res.cookie('cool', 'cool', {
             //   signed: true,
