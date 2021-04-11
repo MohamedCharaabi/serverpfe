@@ -76,9 +76,6 @@ router.post('/login', async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         })
 
-
-
-
         res.status(200).send({ message: 'succcess', token: token });
 
     } catch (error) {
@@ -94,7 +91,7 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/user', async (req, res) => {
-    const cookie = res.cookie['jwt'];
+    const cookie = req.cookies['jwt'];
 
     if (!cookie) {
         return res.send({ message: 'Unauthenticated' })
