@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
             // sameSite: 'lax',
             // secure: true
             sameSite: 'strict',
-            // secure: true
+            secure: true
         })
         res.cookie('cool', 'cool', {
             //   signed: true,
