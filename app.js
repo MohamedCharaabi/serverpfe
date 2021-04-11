@@ -36,7 +36,7 @@ app.use("/user", userRoutes);
 
 
 
-const PORT = process.env.PORT || 5010;
+const PORT = process.env.PORT || 5002;
 
 
 
