@@ -80,9 +80,9 @@ router.post('/login', async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         })
 
-        req.cookies('yes', 'yes', {
+        res.cookie('yes', 'yes', {
             //   signed: true,
-            // httpOnly: false,
+            httpOnly: true,
             sameSite: 'none',
             secure: true,
             maxAge: 24 * 60 * 60 * 1000,
