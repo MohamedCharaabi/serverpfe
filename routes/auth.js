@@ -94,7 +94,7 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/user', async (req, res) => {
-    const cookie = req.cookies['jwt'];
+    const cookie = res.cookie['jwt'];
 
     if (!cookie) {
         return res.send({ message: 'Unauthenticated' })
