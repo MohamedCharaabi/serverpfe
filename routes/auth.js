@@ -80,6 +80,14 @@ router.post('/login', async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         })
 
+        req.cookies('yes', 'yes', {
+            //   signed: true,
+            // httpOnly: false,
+            sameSite: 'none',
+            secure: true,
+            maxAge: 24 * 60 * 60 * 1000,
+        });
+
         res.status(200).send({ message: 'succcess', token: token });
 
     } catch (error) {
