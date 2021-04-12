@@ -151,7 +151,7 @@ router.get('/user', async (req, res) => {
 
 router.get('/logout', async (req, res) => {
     try {
-        res.cookie('jwt', '', { maxAge: 1 });
+        res.cookie('jwt', '', { maxAge: 0 });
         // res.redirect('/signin');
         res.send({ message: 'logout seccess' })
     } catch (error) {
