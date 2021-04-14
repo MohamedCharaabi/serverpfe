@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
 
     if (!personnel) {
         return res.status(404).send({
-            message: 'personnel not found'
+            message: 'Invalid Email'
         })
     }
 
