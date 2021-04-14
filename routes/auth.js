@@ -106,7 +106,7 @@ router.get('/user', async (req, res) => {
     const cookie = req.cookies['jwt'];
 
     if (!cookie) {
-        return res.send({ message: 'Unauthenticated' })
+        return res.send({ message: 'Unauthenticated', auth: false })
 
     }
 
@@ -116,7 +116,7 @@ router.get('/user', async (req, res) => {
         const claims = jwt.verify(cookie, 'secret');
 
         if (!claims) {
-            return res.send({ message: 'Unauthenticated' })
+            return res.send({ message: 'Unauthenticated', auth: false })
         }
 
         const personnel = await Personnel.findOne({ _id: claims._id })
@@ -124,30 +124,12 @@ router.get('/user', async (req, res) => {
 
         res.send(data)
     } catch (error) {
-        return res.status(401).send({ message: 'error => ' + error.message })
+        return res.status(401).send({ message: 'error => ' + error.message , auth: false})
 
     }
 }
 )
-// router.post('/logout', async (req, res) => {
-//      res.header("Access-Control-Allow-Headers", "*");
-//      res.header('Access-Control-Allow-Credentials', true);
-//      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 
-//     try {
-//         const cookie = req.cookies['jwt'];
-
-//         res.cookie('jwt', cookie, {  
-//             sameSite: 'none',
-//         secure: true,
-//           maxAge: 0,
-//            httpOnly: true }); //remove the cookie by setting the age to 0
-//         res.cookie('cool', { maxAge: 0 });
-//         res.send({ message: ' log out success' })
-//     } catch (error) {
-//         res.sent({ erroer: error })
-//     }
-// });
 
 router.get('/logout', async (req, res) => {
     try {
