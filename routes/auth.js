@@ -122,9 +122,9 @@ router.get('/user', async (req, res) => {
         const personnel = await Personnel.findOne({ _id: claims._id })
         const { password, ...data } = await personnel.toJSON();
 
-        res.send(data)
+        res.send({ data, auth: true })
     } catch (error) {
-        return res.status(401).send({ message: 'error => ' + error.message , auth: false})
+        return res.status(401).send({ message: 'error => ' + error.message, auth: false })
 
     }
 }
