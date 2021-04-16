@@ -9,12 +9,24 @@ export const divisionSchema = new mongoose.Schema({
     dep_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Department',
+        // required: true,
+    },
+    dep_name: {
+        type: String,
+        ref: 'Department',
         required: true,
+        unique: true,
     },
     dir_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Direction',
+        // required: true,
+    },
+    dir_name: {
+        type: String,
+        ref: 'Direction',
         required: true,
+        unique: true
     }
 
 
