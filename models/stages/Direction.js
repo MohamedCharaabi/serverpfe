@@ -9,7 +9,7 @@ export const directionSchema = new mongoose.Schema({
 
     dep_name: {
         type: String,
-        ref: 'Department',
+        // ref: 'Department',
         required: true,
         unique: true
     }
