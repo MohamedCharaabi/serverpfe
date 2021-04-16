@@ -6,20 +6,23 @@ export const serviceSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    dep_id: {
-        type: mongoose.Schema.Types.ObjectId,
+    dep_name: {
+        type: String,
         ref: 'Department',
         required: true,
+        unique: true
     },
-    dir_id: {
-        type: mongoose.Schema.Types.ObjectId,
+    dir_name: {
+        type: String,
         ref: 'Direction',
         required: true,
+        unique: true
     },
-    div_id: {
-        type: mongoose.Schema.Types.ObjectId,
+    div_name: {
+        type: String,
         ref: 'Division',
         required: true,
+        unique: true
 
     }
 

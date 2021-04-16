@@ -10,9 +10,9 @@ const router = express.Router();
 
 export const createService = async (req, res) => {
 
-    const { name, dep_id, dir_id, div_id } = req.body;
+    const { name, dep_name, dir_name, div_name } = req.body;
 
-    const newSer = new Service({ name, dep_id, dir_id, div_id })
+    const newSer = new Service({ name, dep_name, dir_name, div_name })
 
     try {
         await newSer.save();
@@ -54,12 +54,12 @@ export const getSer = async (req, res) => {
 
 export const updateService = async (req, res) => {
     const { id } = req.params;
-    const { name, dep_id, dir_id, div_id } = req.body;
+    const { name, dep_name, dir_name, div_name } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Service with id: ${id}`);
 
 
-    const updatedSer = { name, dep_id, dir_id, div_id, _id: id };
+    const updatedSer = { name, dep_name, dir_name, div_name, _id: id };
 
     await Service.findByIdAndUpdate(id, updatedSer, { new: true });
 
