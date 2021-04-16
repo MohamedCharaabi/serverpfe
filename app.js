@@ -11,6 +11,11 @@ import requestRoutes from './routes/requests.js'
 import personnelRoutes from './routes/personnels.js'
 import themeRoutes from './routes/themes.js'
 import userRoutes from './routes/auth.js'
+import depRoutes from './routes/departments.js'
+import dirRoutes from './routes/direction.js'
+import divRoutes from './routes/division.js'
+import serRoutes from './routes/service.js'
+
 
 
 
@@ -31,6 +36,11 @@ app.use("/request", requestRoutes);
 app.use("/personnel", personnelRoutes);
 app.use("/theme", themeRoutes);
 app.use("/user", userRoutes);
+app.use("/dep", depRoutes);
+app.use("/dir", dirRoutes);
+app.use("/div", divRoutes);
+app.use("/ser", serRoutes);
+
 
 
 
