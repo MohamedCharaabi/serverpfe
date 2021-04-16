@@ -10,9 +10,9 @@ const router = express.Router();
 
 export const createDirection = async (req, res) => {
 
-    const { name, dep_id, dep_name } = req.body;
+    const { name, dep_name } = req.body;
 
-    const newDire = new Direction({ name, dep_id, dep_name })
+    const newDire = new Direction({ name, dep_name })
 
     try {
         await newDire.save();
@@ -54,12 +54,12 @@ export const getDirection = async (req, res) => {
 
 export const updateDirection = async (req, res) => {
     const { id } = req.params;
-    const { name, dep_id, dep_name } = req.body;
+    const { name, dep_name } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Direction with id: ${id}`);
 
 
-    const updatedDirec = { name, dep_id, dep_name, _id: id };
+    const updatedDirec = { name, dep_name, _id: id };
 
     await Direction.findByIdAndUpdate(id, updatedDirec, { new: true });
 
