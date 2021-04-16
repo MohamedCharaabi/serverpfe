@@ -10,9 +10,9 @@ const router = express.Router();
 
 export const createDivision = async (req, res) => {
 
-    const { name, dir_id } = req.body;
+    const { name, dep_id, dir_id } = req.body;
 
-    const newDiv = new Division({ name, dir_id })
+    const newDiv = new Division({ name, dep_id, dir_id })
 
     try {
         await newDiv.save();
@@ -54,12 +54,12 @@ export const getDiv = async (req, res) => {
 
 export const updateDivision = async (req, res) => {
     const { id } = req.params;
-    const { name, dir_id } = req.body;
+    const { name, dep_id, dir_id } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Division with id: ${id}`);
 
 
-    const updatedDiv = { name, dir_id, _id: id };
+    const updatedDiv = { name, dep_id, dir_id, _id: id };
 
     await Division.findByIdAndUpdate(id, updatedDiv, { new: true });
 
