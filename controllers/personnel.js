@@ -10,9 +10,9 @@ const router = express.Router();
 
 export const createPersonnel = async (req, res) => {
 
-    const { nomPer, emailPer, passPer, rolePer, idDep, idDir, idDiv, idSer } = req.body;
+    const { nomPer, emailPer, passPer, rolePer, Dep, Dir, Div, Ser } = req.body;
 
-    const newPersonnel = new Personel({ nomPer, emailPer, passPer, rolePer, idDep, idDir, idDiv, idSer })
+    const newPersonnel = new Personel({ nomPer, emailPer, passPer, rolePer, Dep, Dir, Div, Ser })
 
     try {
         await newPersonnel.save();
@@ -54,12 +54,12 @@ export const getPersonnel = async (req, res) => {
 
 export const updatePersonnel = async (req, res) => {
     const { id } = req.params;
-    const { nomPer, emailPer, passPer, rolePer, idDep, idDir, idDiv, idSer } = req.body;
+    const { nomPer, emailPer, passPer, rolePer, Dep, Dir, Div, Ser } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Personnel with id: ${id}`);
 
 
-    const updatedPersonnel = { nomPer, emailPer, passPer, rolePer, idDep, idDir, idDiv, idSer, _id: id };
+    const updatedPersonnel = { nomPer, emailPer, passPer, rolePer, Dep, Dir, Div, Ser, _id: id };
 
     await Personel.findByIdAndUpdate(id, updatedPersonnel, { new: true });
 

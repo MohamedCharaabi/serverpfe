@@ -12,27 +12,27 @@ export const personSchema = new mongoose.Schema({
     },
     passPer: {
         type: String,
-        required: true,
+        // required: true,
     },
     rolePer: {
         type: String,
-        required: true,
+        // required: true,
     },
-    idDep: {
-        type: Number,
-        required: true,
+    Dep: {
+        type: String,
+        // required: true,
     },
-    idDir: {
-        type: Number,
-        required: true,
+    Dir: {
+        type: String,
+        // required: true,
     },
-    idDiv: {
-        type: Number,
-        required: true,
+    Div: {
+        type: String,
+        // required: true,
     },
-    idSer: {
-        type: Number,
-        required: true,
+    Ser: {
+        type: String,
+        // required: true,
     },
 
 
