@@ -6,18 +6,6 @@ import bcrypt from 'bcryptjs'
 
 const router = express.Router();
 
-
-
-router.get('/users', async (req, res) => {
-    try {
-        const personnels = await Personnel.find();
-        res.status(200).json(personnels);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-);
-
 router.post('/register', async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
