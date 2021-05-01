@@ -29,10 +29,10 @@ router.post('/register', async (req, res) => {
         emailPer: req.body.emailPer,
         passPer: hashedPassword,
         rolePer: req.body.rolePer,
-        idDep: req.body.idDep,
-        idDir: req.body.idDir,
-        idDiv: req.body.idDiv,
-        idSer: req.body.idSer,
+        Dep: req.body.idDep,
+        Dir: req.body.idDir,
+        Div: req.body.idDiv,
+        Ser: req.body.idSer,
 
 
     })
