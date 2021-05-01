@@ -20,25 +20,37 @@ router.get('/users', async (req, res) => {
 
 router.post('/register', async (req, res) => {
 
+    const { nomPer, emailPer, passPer, rolePer, Dep, Dir, Div, Ser } = req.body;
+
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.passPer, salt);
+    const hashedPassword = await bcrypt.hash(passPer, salt);
 
 
     const personnel = new Personnel({
-        nomPer: req.body.nomPer,
-        emailPer: req.body.emailPer,
+        nomPer,
+        emailPer,
         passPer: hashedPassword,
-        rolePer: req.body.rolePer,
-        Dep: req.body.idDep,
-        Dir: req.body.idDir,
-        Div: req.body.idDiv,
-        Ser: req.body.idSer,
+        rolePer,
+        Dep,
+        Dir,
+        Div,
+        Ser,
 
 
     })
-    const result = await personnel.save();
-    const { password, ...data } = await result.toJSON();
-    res.send(data);
+
+    try {
+        const result = await personnel.save();
+        // res.status(200).json(newPersonnel);
+        const { password, ...data } = await result.toJSON();
+        res.send(data);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+
+    // const result = await personnel.save();
+    // const { password, ...data } = await result.toJSON();
+    // res.send(data);
 }
 );
 
