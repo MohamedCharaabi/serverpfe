@@ -30,11 +30,36 @@ export const requestSchema = new mongoose.Schema({
     rmsqDem: {
         type: String,
         required: true,
-    }, 
-dateDem: {
+    },
+    dateDem: {
         type: Date,
         required: true,
         default: Date.now
+    },
+    name: {
+        type: String,
+        required: true,
+
+    },
+    dep_name: {
+        type: String,
+        required: true,
+
+    },
+    dir_name: {
+        type: String,
+        required: true,
+
+    },
+    div_name: {
+        type: String,
+        required: true,
+
+    },
+    ser_name: {
+        type: String,
+        required: true,
+
     }
 })
 
