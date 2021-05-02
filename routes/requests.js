@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', createRequest);
 router.get('/', getRequests);
-router.get('/filter/', getFiltretRequests);
+router.get('/filter/:rolePer/:Dep/:Dir/:Div/:Ser', getFiltretRequests);
 router.get('/:id', requestStatus);
 router.patch('/:id', updateRequest);
 router.delete('/:id', deleteRequest);

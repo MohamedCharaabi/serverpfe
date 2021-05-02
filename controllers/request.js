@@ -63,7 +63,7 @@ export const requestStatus = async (req, res) => {
 
 export const updateRequest = async (req, res) => {
     const { id } = req.params;
-    const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem } = req.body;
+    const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
 
