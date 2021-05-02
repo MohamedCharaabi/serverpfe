@@ -38,7 +38,7 @@ export const requestSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        required: true,
+
 
     },
     dep_name: {
