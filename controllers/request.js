@@ -107,9 +107,11 @@ export const updateRequest = async (req, res) => {
 
     const updatedRequest = { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name, _id: id };
 
-    await Request.findByIdAndUpdate(id, updatedRequest, { new: true });
+    await Request.findByIdAndUpdate(id, updatedRequest, { new: true })
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(404).json({ message: error.message }));;
 
-    res.json(updatedRequest);
+    // res.json(updatedRequest);
 
 
 }
