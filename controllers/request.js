@@ -9,9 +9,9 @@ const router = express.Router();
 
 export const createRequest = async (req, res) => {
 
-    const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem } = req.body;
+    const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name } = req.body;
 
-    const newRequest = new Request({ nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem })
+    const newRequest = new Request({ nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name })
 
     try {
         await newRequest.save();
@@ -56,7 +56,7 @@ export const updateRequest = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
 
 
-    const updatedRequest = { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, _id: id };
+    const updatedRequest = { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name, _id: id };
 
     await Request.findByIdAndUpdate(id, updatedRequest, { new: true });
 
