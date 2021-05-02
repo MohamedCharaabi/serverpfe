@@ -62,6 +62,41 @@ export const requestStatus = async (req, res) => {
 
 
 
+export const acceptRequest = async (req, res) => {
+    const { id } = req.params;
+    const { etatDem, name } = req.body;
+
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
+
+    let newName = '';
+    const newState = etatDem - 1;
+
+    switch (newState) {
+        case 3:
+            newName = 'div'
+            break;
+        case 2:
+            newName = 'dir'
+            break;
+        case 1:
+            newName = 'dep'
+            break;
+        default:
+            break;
+    }
+
+
+    const updatedRequest = { etatDem: newState, name: newName, _id: id };
+
+    await Request.findByIdAndUpdate(id, updatedRequest, { new: true });
+
+    res.json(updatedRequest);
+
+
+}
+
+
 
 export const updateRequest = async (req, res) => {
     const { id } = req.params;
