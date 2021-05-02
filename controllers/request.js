@@ -36,7 +36,9 @@ export const getFiltretRequests = async (req, res) => {
 
     const { rolePer, Dep, Dir, Div, Ser } = req.params;
 
-    await Request.find({ name: rolePer, dep_name: Dep, dir_name: Dir, div_name: Div, ser_name: Ser })
+
+
+    await Request.find({ name: rolePer, dep_name: Dep, dir_name: Dir, div_name: Div, ser_name: (Ser == 0 ? '' : Ser) })
         .then(results => res.status(200).json(results))
         .catch(error => res.status(404).json({ message: error.message }));
 
