@@ -9,7 +9,7 @@ router.get('/', getRequests);
 router.get('/filter/:rolePer/:Dep/:Dir/:Div/:Ser', getFiltretRequests);
 router.get('/:id', requestStatus);
 router.patch('/:id', updateRequest);
-router.patch('/:id', acceptRequest);
+router.patch('/accept/:id', acceptRequest);
 router.delete('/:id', deleteRequest);
 
 
