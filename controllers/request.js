@@ -64,7 +64,7 @@ export const requestStatus = async (req, res) => {
 
 export const acceptRequest = async (req, res) => {
     const { id } = req.params;
-    const { etatDem, name } = req.body;
+    const { etatDem, name, demmande } = req.body;
 
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
@@ -75,6 +75,7 @@ export const acceptRequest = async (req, res) => {
     switch (newState) {
         case 3:
             newName = 'div'
+
             break;
         case 2:
             newName = 'dir'
@@ -87,7 +88,14 @@ export const acceptRequest = async (req, res) => {
     }
 
 
-    const updatedRequest = { etatDem: newState, name: newName, _id: id };
+
+    let service = etatDem < 4 ? '' : demmande.ser_name;
+    let division = etatDem < 3 ? '' : demmande.div_name;
+    let direction = etatDem < 2 ? '' : demmande.dir_name;
+
+
+
+    const updatedRequest = { etatDem: newState, name: newName, ser_name: service, div_name: division, dir_name: direction, _id: id };
 
     await Request.findByIdAndUpdate(id, updatedRequest, { new: true })
         .then(results => res.status(200).json(results))
