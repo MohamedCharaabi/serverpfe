@@ -89,9 +89,11 @@ export const acceptRequest = async (req, res) => {
 
     const updatedRequest = { etatDem: newState, name: newName, _id: id };
 
-    await Request.findByIdAndUpdate(id, updatedRequest, { new: true });
+    await Request.findByIdAndUpdate(id, updatedRequest, { new: true })
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(404).json({ message: error.message }));;;
 
-    res.json(updatedRequest);
+    // res.json(updatedRequest);
 
 
 }
