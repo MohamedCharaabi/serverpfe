@@ -34,7 +34,7 @@ export const getRequests = async (req, res) => {
 
 export const getFiltretRequests = async (req, res) => {
 
-    const { rolePer, Dep, Dir, Div, Ser } = req.body;
+    const { rolePer, Dep, Dir, Div, Ser } = req.params;
 
     await Request.find({ name: rolePer, dep_name: Dep, dir_name: Dir, div_name: Div, ser_name: Ser })
         .then(results => res.status(200).json(results))
@@ -63,7 +63,7 @@ export const requestStatus = async (req, res) => {
 
 export const updateRequest = async (req, res) => {
     const { id } = req.params;
-    const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem } = req.params;
+    const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
 
