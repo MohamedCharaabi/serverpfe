@@ -89,9 +89,9 @@ export const acceptRequest = async (req, res) => {
 
 
 
-    let service = etatDem < 4 ? '' : demmande.ser_name;
-    let division = etatDem < 3 ? '' : demmande.div_name;
-    let direction = etatDem < 2 ? '' : demmande.dir_name;
+    let service = newState < 4 ? '' : demmande.ser_name;
+    let division = newState < 3 ? '' : demmande.div_name;
+    let direction = newState < 2 ? '' : demmande.dir_name;
 
 
 
