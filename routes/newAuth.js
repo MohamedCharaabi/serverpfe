@@ -94,7 +94,7 @@ router.post('/login', async (req, res) => {
             // delete userData.password
 
             const response = {
-                user,
+                userData: user,
                 accessToken,
                 refreshToken
             }
