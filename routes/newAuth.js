@@ -17,10 +17,10 @@ const jwtConfig = {
 
 router.post('/register', async (req, res) => {
 
+    const { fullName, email, rolePer, Dep, Dir, Div, Ser } = req.body
     if (req.body.length > 0) {
-        const { fullName, email, rolePer, Dep, Dir, Div, Ser } = req.body
-        // const isEmailAlreadyInUse = NewUser.find({ email })
-        // const isUsernameAlreadyInUse = NewUser.find({ username })
+        const isEmailAlreadyInUse = NewUser.find({ email })
+        const isUsernameAlreadyInUse = NewUser.find({ username })
         const error = {
             email: isEmailAlreadyInUse ? 'This email is already in use.' : null,
             username: isUsernameAlreadyInUse ? 'This username is already in use.' : null
