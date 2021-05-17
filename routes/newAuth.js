@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
         }
     }
 
-    res.header("Access-Control-Allow-Origin": "*")
+    res.header("Access-Control-Allow-Origin", "*")
 
     // if (!error.username && !error.email) {
     const userData = {
