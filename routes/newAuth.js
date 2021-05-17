@@ -17,8 +17,6 @@ const jwtConfig = {
 
 router.post('/register', async (req, res) => {
 
-
-
     const { fullName, email, rolePer, Dep, Dir, Div, Ser } = req.body
     if (req.body.length > 0) {
         const isEmailAlreadyInUse = NewUser.find({ email })
