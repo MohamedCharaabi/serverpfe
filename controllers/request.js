@@ -11,7 +11,8 @@ export const createRequest = async (req, res) => {
 
     const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name } = req.body;
 
-    const newRequest = new Request({ nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name })
+    const createHistory = { message: 'request creation' }
+    const newRequest = new Request({ nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name, history: createHistory })
 
     try {
         await newRequest.save();
@@ -64,7 +65,7 @@ export const requestStatus = async (req, res) => {
 
 export const acceptRequest = async (req, res) => {
     const { id } = req.params;
-    const { etatDem, name, demmande } = req.body;
+    const { etatDem, name, demmande, message } = req.body;
 
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
@@ -95,7 +96,7 @@ export const acceptRequest = async (req, res) => {
 
 
 
-    const updatedRequest = { etatDem: newState, name: newName, ser_name: service, div_name: division, dir_name: direction, _id: id };
+    const updatedRequest = { etatDem: newState, name: newName, ser_name: service, div_name: division, dir_name: direction, $push: { history: { message } }, _id: id };
 
     await Request.findByIdAndUpdate(id, updatedRequest, { new: true })
         .then(results => res.status(200).json(results))

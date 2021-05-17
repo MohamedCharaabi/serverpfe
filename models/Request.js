@@ -60,7 +60,17 @@ export const requestSchema = new mongoose.Schema({
         type: String,
         required: true,
 
-    }
+    },
+    history: [{
+        message: {
+            type: String,
+            required: true,
+        },
+        writedAt: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 })
 
 export default mongoose.model('Request', requestSchema);
