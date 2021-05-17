@@ -18,7 +18,7 @@ const jwtConfig = {
 router.post('/register', async (req, res) => {
 
     if (req.body.length > 0) {
-        const { email, password, username } = req.body
+        const { fullName, email, rolePer, Dep, Dir, Div, Ser } = req.body
         // const isEmailAlreadyInUse = NewUser.find({ email })
         // const isUsernameAlreadyInUse = NewUser.find({ username })
         const error = {
@@ -29,43 +29,36 @@ router.post('/register', async (req, res) => {
 
     // if (!error.username && !error.email) {
     const userData = {
-        fullName: 'Kalil mar3i',
-        username: "kalilo",
+        fullName,
+        username: fullName,
         password: "12345",
         avatar: null,
-        email: 'kalilo@yahoo.fr',
+        email: email,
         role: 'client',
+        rolePer,
+        Dep,
+        Dir,
+        Div,
+        Ser,
         ability: [
             {
-                action: 'manage',
-                subject: 'all'
+                action: 'read',
+                subject: 'auth'
             }
         ]
     }
 
-    // Add user id
-    // const length = data.users.length
-    // let lastIndex = 0
-    // if (length) {
-    //     lastIndex = data.users[length - 1].id
-    // }
-    //   userData.id = lastIndex + 1
-
-    //   data.users.push(userData)
     //save 
     const user = new NewUser(userData);
     await user.save();
 
-    const accessToken = jwt.sign({ id: userData.username }, jwtConfig.secret, { expiresIn: jwtConfig.expireTime })
+    // const accessToken = jwt.sign({ id: userData.username }, jwtConfig.secret, { expiresIn: jwtConfig.expireTime })
 
     const userNew = Object.assign({}, userData)
     delete userNew['password']
     const response = { userNew, accessToken }
 
     return res.json({ response })
-    // } else {
-    //     return res.json({ 'Error': 'yes' })
-    // }
 
 });
 
