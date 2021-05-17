@@ -111,4 +111,10 @@ router.post('/login', async (req, res) => {
 });
 
 
+router.get('/users', async (req, res) => {
+    await NewUser.find()
+        .then(result => res.status(200).send(result))
+        .catch(err => res.status(404).send(err));
+})
+
 export default router;
