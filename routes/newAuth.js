@@ -55,11 +55,11 @@ router.post('/register', async (req, res) => {
 
     // const accessToken = jwt.sign({ id: userData.username }, jwtConfig.secret, { expiresIn: jwtConfig.expireTime })
 
-    const userNew = Object.assign({}, userData)
-    delete userNew['password']
-    const response = { userNew, accessToken }
+    // const userNew = Object.assign({}, userData)
+    // delete userNew['password']
+    // const response = { userNew }
 
-    return res.json({ response })
+    return res.json({ user })
 
 });
 
