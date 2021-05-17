@@ -15,7 +15,13 @@ const jwtConfig = {
 }
 
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next()
 
     const { fullName, email, rolePer, Dep, Dir, Div, Ser } = req.body
     if (req.body.length > 0) {
@@ -27,9 +33,6 @@ router.post('/register', async (req, res) => {
         }
     }
 
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
 
     // if (!error.username && !error.email) {
     const userData = {
