@@ -101,7 +101,7 @@ router.post('/login', async (req, res) => {
 
         }
     } else {
-        res.status(404).send({ message: 'Email or Password is Invalid' })
+        res.status(404).send({ message: 'user is undefined' })
     }
 
 
