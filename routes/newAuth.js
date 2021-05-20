@@ -97,7 +97,7 @@ router.post('/login', async (req, res) => {
 
         } catch (e) {
 
-            res.status(404).send({ message: 'Email or Password is Invalid' })
+            res.status(404).send({ message: e.message })
 
         }
     } else {
