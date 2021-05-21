@@ -2,6 +2,9 @@ import express from 'express';
 import NewUser from '../models/NewUser.js'
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs'
+import nodemailer from 'nodemailer'
+import mongoose from 'mongoose'
+import { directorConfMail } from './constant.js'
 
 
 const router = express.Router();
@@ -14,25 +17,28 @@ const jwtConfig = {
     refreshTokenExpireTime: '10m'
 }
 
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'medfr333@gmail.com',
+        pass: 'ml46284628'
+    }
+});
+
 
 router.post('/register', async (req, res) => {
 
     const { fullName, email, rolePer, Dep, Dir, Div, Ser } = req.body
-    if (req.body.length > 0) {
-        const isEmailAlreadyInUse = NewUser.find({ email })
-        const isUsernameAlreadyInUse = NewUser.find({ username })
-        const error = {
-            email: isEmailAlreadyInUse ? 'This email is already in use.' : null,
-            username: isUsernameAlreadyInUse ? 'This username is already in use.' : null
-        }
+    const verifEmail = await NewUser.findOne({ email })
+    if (verifEmail) {
+        res.status(409).send({ message: 'email already exist', user: verifEmail })
     }
+    var randomstring = Math.random().toString(36).slice(-8);
 
-
-    // if (!error.username && !error.email) {
     const userData = {
         fullName,
         username: fullName,
-        password: "12345",
+        password: randomstring,
         avatar: null,
         email: email,
         role: 'client',
@@ -49,16 +55,18 @@ router.post('/register', async (req, res) => {
         ]
     }
 
+    var mailOptions = {
+        from: 'medfr333@gmail.com',
+        to: email,
+        subject: 'Confirmation of PFE-CIMS director',
+        html: directorConfMail(fullName, randomstring, email)
+
+    };
+
     //save 
     const user = new NewUser(userData);
     await user.save();
-
-    // const accessToken = jwt.sign({ id: userData.username }, jwtConfig.secret, { expiresIn: jwtConfig.expireTime })
-
-    // const userNew = Object.assign({}, userData)
-    // delete userNew['password']
-    // const response = { userNew }
-
+    transporter.sendMail(mailOptions)
     return res.json({ user })
 
 });
@@ -115,5 +123,24 @@ router.get('/users', async (req, res) => {
         .then(result => res.status(200).send(result))
         .catch(err => res.status(404).send(err));
 })
+
+
+router.patch('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { fullName, email, password, avatar } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
+
+
+    const updateduser = { fullName, email, password, avatar, _id: id };
+
+    await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
+
+    res.json(updateduser);
+
+
+})
+
+
 
 export default router;
