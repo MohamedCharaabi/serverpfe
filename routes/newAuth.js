@@ -140,7 +140,8 @@ router.patch('/:id', async (req, res) => {
 
 
 })
-router.patch('editavatar/:id', async (req, res) => {
+
+router.patch('/editavatar/:id', async (req, res) => {
     const { id } = req.params;
     const { avatar } = req.body;
 
@@ -149,9 +150,9 @@ router.patch('editavatar/:id', async (req, res) => {
 
     const updateduser = { avatar, _id: id };
 
-    await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
+    const user = await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
 
-    res.json(updateduser);
+    res.json(user);
 
 
 })
