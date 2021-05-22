@@ -134,9 +134,9 @@ router.patch('/:id', async (req, res) => {
 
     const updateduser = { fullName, email, password, avatar, _id: id };
 
-    await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
+    const user = await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
 
-    res.json(updateduser);
+    res.json(user);
 
 
 })
