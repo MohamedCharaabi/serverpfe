@@ -56,10 +56,11 @@ export const updateTheme = async (req, res) => {
     const { id } = req.params;
     const { theme, creator, createdAt } = req.body;
 
+
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Theme with id: ${id}`);
 
 
-    const updatedTheme = { theme, creator, createdAt, _id: id };
+    const updatedTheme = { theme, creator, createdAt: Date.now(), _id: id };
 
     await Theme.findByIdAndUpdate(id, updatedTheme, { new: true });
 
