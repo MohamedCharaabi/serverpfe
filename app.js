@@ -16,6 +16,7 @@ import dirRoutes from './routes/direction.js'
 import divRoutes from './routes/division.js'
 import serRoutes from './routes/service.js'
 import NewUserRoutes from './routes/newAuth.js'
+import allLevelsRoutes from './routes/allLevels.js'
 
 dotenv.config();
 
@@ -38,7 +39,7 @@ app.use("/dir", dirRoutes);
 app.use("/div", divRoutes);
 app.use("/ser", serRoutes);
 app.use("/new", NewUserRoutes);
-
+app.use("/all", allLevelsRoutes);
 
 const PORT = process.env.PORT || 5000;
 
