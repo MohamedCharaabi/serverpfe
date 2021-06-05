@@ -17,6 +17,7 @@ import divRoutes from './routes/division.js'
 import serRoutes from './routes/service.js'
 import NewUserRoutes from './routes/newAuth.js'
 import allLevelsRoutes from './routes/allLevels.js'
+import statisticsRoutes from './routes/statistics.js'
 
 dotenv.config();
 
@@ -40,8 +41,9 @@ app.use("/div", divRoutes);
 app.use("/ser", serRoutes);
 app.use("/new", NewUserRoutes);
 app.use("/all", allLevelsRoutes);
+app.use("/stat", statisticsRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }, () => {
     console.log('Database connected');
