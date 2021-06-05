@@ -113,7 +113,7 @@ export const refuseRequest = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
 
 
-    const updatedRequest = { rmsqDem, $push: { history: { message } }, _id: id };
+    const updatedRequest = { rmsqDem, confDem: 'no', $push: { history: { message } }, _id: id };
 
     await Request.findByIdAndUpdate(id, updatedRequest, { new: true })
         .then(results => res.status(200).json(results))
