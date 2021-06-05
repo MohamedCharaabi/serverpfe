@@ -96,10 +96,12 @@ export const allStat = async (req, res) => {
 
     res.status(200).json({
         topTheme,
-        depCount,
-        dirCount,
-        divCount,
-        serCount,
+        levelsCount: {
+            depCount,
+            dirCount,
+            divCount,
+            serCount
+        },
         monthRequest,
         topThemeMonth
     })
