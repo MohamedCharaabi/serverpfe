@@ -26,7 +26,6 @@ export const requestSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-
     rmsqDem: {
         type: String,
         required: true,

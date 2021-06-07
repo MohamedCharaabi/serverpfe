@@ -73,13 +73,7 @@ const sendMail = async (adress, subject, text, html) => {
     }
 }
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'medfr333@gmail.com',
-        pass: 'ml46284628'
-    }
-});
+
 
 
 router.post('/register', async (req, res) => {
@@ -144,7 +138,19 @@ router.post('/login', async (req, res) => {
     let error = {
         email: 'Something went wrong'
     }
-    const user = await NewUser.findOne({ email, password })
+    const user = await NewUser.findOne({ email })
+
+    if (!user) {
+        return res.status(404).send({
+            message: 'Invalid Email'
+        })
+    }
+
+    if (password, user.password) {
+        return res.status(400).send({
+            message: 'invalid password'
+        })
+    }
 
 
     if (user) {
@@ -219,6 +225,49 @@ router.patch('/editavatar/:id', async (req, res) => {
 
 
 })
+
+
+router.patch('/changepassword/:id', async (req, res) => {
+    const { id } = req.params;
+    const { oldpass, newPass } = req.body;
+    const user = await NewUser.findById(id);
+
+    if (oldpass !== user.password) {
+        return res.status(400).send({
+            message: 'mot de passe incorrect'
+        })
+    }
+    //  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
+
+
+    const updateduser = { password: newPass, _id: id };
+
+    await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
+
+    return res.statusCode(200).send({ result: 'mot de passe modifier' })
+
+
+})
+
+router.post('/forgotpass', async (req, res) => {
+
+    const { email } = req.body;
+
+    try {
+
+        await sendMail(email, 'PFE CIMS mot de passe oublier', 'Bonjour', '<h3>Mot de passe oublier</h3>')
+        return res.status(200).send({ result: 'mot de passe modifier' })
+    } catch (error) {
+        return res.status(404).send({ error: err })
+    }
+
+
+
+
+})
+
+
+
 
 
 

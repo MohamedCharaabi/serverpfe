@@ -18,6 +18,7 @@ import serRoutes from './routes/service.js'
 import NewUserRoutes from './routes/newAuth.js'
 import allLevelsRoutes from './routes/allLevels.js'
 import statisticsRoutes from './routes/statistics.js'
+import alertsRoutes from './routes/alert.js'
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use("/ser", serRoutes);
 app.use("/new", NewUserRoutes);
 app.use("/all", allLevelsRoutes);
 app.use("/stat", statisticsRoutes);
+app.use("/alert", alertsRoutes);
 
 const PORT = process.env.PORT || 5001;
 
