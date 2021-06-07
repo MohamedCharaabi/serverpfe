@@ -146,7 +146,7 @@ router.post('/login', async (req, res) => {
         })
     }
 
-    if (password, user.password) {
+    if (password !== user.password) {
         return res.status(400).send({
             message: 'invalid password'
         })
