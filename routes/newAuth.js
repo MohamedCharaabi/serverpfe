@@ -5,6 +5,10 @@ import bcrypt from 'bcryptjs'
 import nodemailer from 'nodemailer'
 import mongoose from 'mongoose'
 import { directorConfMail } from './constant.js'
+import { google } from 'googleapis'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 
 const router = express.Router();
@@ -15,6 +19,58 @@ const jwtConfig = {
     refreshTokenSecret: '7c4c1c50-3230-45bf-9eae-c9b2e401c767',
     expireTime: '10m',
     refreshTokenExpireTime: '10m'
+}
+
+
+// These id's and secrets should come from .env file.
+
+
+const CLIENT_ID = '748723653612-0du6bb0s0rh74b6men3ric6uvbra1n6q.apps.googleusercontent.com'
+const CLEINT_SECRET = '7wNLkv9diMdhPbWOThcOB_91'
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+const REFRESH_TOKEN = '1//04aYlyju-dN5uCgYIARAAGAQSNwF-L9IrwocOSHyXUN6vdyOkxkEbyQ5c3_AuYbUaVKsQPbiobLBZlpdwq-g1A8uE7gOJbepJqkw'
+
+
+
+
+
+const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLEINT_SECRET,
+    REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+
+const sendMail = async (adress, subject, text, html) => {
+
+    try {
+        const accessToken = await oAuth2Client.getAccessToken();
+
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: 'medch373@gmail.com',
+                clientId: CLIENT_ID,
+                clientSecret: CLEINT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken,
+            },
+        });
+
+        const mailOptions = {
+            from: 'medch373@gmail.com',
+            to: adress,
+            subject,
+            text,
+            html,
+        };
+
+        const result = await transport.sendMail(mailOptions);
+        return result;
+    } catch (error) {
+        return error;
+    }
 }
 
 const transporter = nodemailer.createTransport({
@@ -31,7 +87,7 @@ router.post('/register', async (req, res) => {
     const { fullName, email, rolePer, Dep, Dir, Div, Ser } = req.body
     const verifEmail = await NewUser.findOne({ email })
     if (verifEmail) {
-        res.status(409).send({ message: 'email already exist', user: verifEmail })
+        return res.status(409).send({ message: 'email already exist', user: verifEmail })
     }
     var randomstring = Math.random().toString(36).slice(-8);
 
@@ -55,19 +111,26 @@ router.post('/register', async (req, res) => {
         ]
     }
 
-    var mailOptions = {
-        from: 'medfr333@gmail.com',
-        to: email,
-        subject: 'Confirmation of PFE-CIMS director',
-        html: directorConfMail(fullName, randomstring, email)
+    // var mailOptions = {
+    //     from: 'medfr333@gmail.com',
+    //     to: email,
+    //     subject: 'Confirmation of PFE-CIMS director',
+    //     html: directorConfMail(fullName, randomstring, email)
 
-    };
+    // };
 
     //save 
     const user = new NewUser(userData);
-    await user.save();
-    transporter.sendMail(mailOptions)
-    return res.json({ user })
+    try {
+        await user.save();
+        // transporter.sendMail(mailOptions)
+        const result = await sendMail(email, 'Confirmation of PFE-CIMS director', 'Bonjour', directorConfMail(fullName, randomstring, email))
+        return res.json({ user, result })
+    } catch (error) {
+        return res.statusCode(404).send({ error })
+
+    }
+
 
 });
 
