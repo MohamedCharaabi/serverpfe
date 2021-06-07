@@ -241,10 +241,15 @@ router.patch('/changepassword/:id', async (req, res) => {
 
 
     const updateduser = { password: newPass, _id: id };
+    try {
 
-    await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
+        await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
 
-    return res.statusCode(200).send({ result: 'mot de passe modifier' })
+        return res.statusCode(200).send({ result: 'mot de passe modifier' })
+    } catch (error) {
+        return res.statusCode(400).send({ error })
+
+    }
 
 
 })
