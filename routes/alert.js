@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', createAlert);
 router.get('/', getAlerts);
 router.get('/:id', getAlert);
-router.patch('/:id', updateAlert);
+router.patch('/see/:id', updateAlert);
 router.delete('/:id', deleteAlert);
 
 
