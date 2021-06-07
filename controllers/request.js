@@ -143,6 +143,23 @@ export const updateRequest = async (req, res) => {
 
 }
 
+export const confirmEmail = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
+
+
+    const confirmededRequest = { confDem: 'yes', _id: id };
+
+    await Request.findByIdAndUpdate(id, confirmededRequest, { new: true })
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(404).json({ message: error.message }));;
+
+    // res.json(updatedRequest);
+
+
+}
+
 export const deleteRequest = async (req, res) => {
     const { id } = req.params;
 
