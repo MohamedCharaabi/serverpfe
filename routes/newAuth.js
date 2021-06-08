@@ -254,6 +254,33 @@ router.patch('/changepassword/:id', async (req, res) => {
 
 })
 
+router.patch('/updateforgotpassword/:id', async (req, res) => {
+    const { id } = req.params;
+    const { newPass } = req.body;
+    const user = await NewUser.findById(id);
+
+    if (!user) {
+        return res.status(404).send({
+            message: 'no user with this id'
+        })
+    }
+    //  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
+
+
+    const updateduser = { password: newPass, _id: id };
+    try {
+
+        await NewUser.findByIdAndUpdate(id, updateduser, { new: true });
+
+        return res.statusCode(200).send({ result: 'mot de passe modifier' })
+    } catch (error) {
+        return res.statusCode(400).send({ error })
+
+    }
+
+
+})
+
 router.post('/forgotpass', async (req, res) => {
 
     const { email } = req.body;
