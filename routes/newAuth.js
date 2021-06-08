@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs'
 import nodemailer from 'nodemailer'
 import mongoose from 'mongoose'
-import { directorConfMail } from './constant.js'
+import { directorConfMail, forgotPassMail } from './constant.js'
 import { google } from 'googleapis'
 import dotenv from 'dotenv'
 
@@ -257,10 +257,12 @@ router.patch('/changepassword/:id', async (req, res) => {
 router.post('/forgotpass', async (req, res) => {
 
     const { email } = req.body;
+    const user = await NewUser.findOne({ email })
+    if (!user) return res.status(404).send('pas de compte pour ce email')
 
     try {
 
-        await sendMail(email, 'PFE CIMS mot de passe oublier', 'Bonjour', '<h3>Mot de passe oublier</h3>')
+        await sendMail(email, 'PFE CIMS mot de passe oublier', 'Bonjour', forgotPassMail(user._id))
         return res.status(200).send({ result: 'mot de passe modifier' })
     } catch (error) {
         return res.status(404).send({ error: err })
