@@ -289,8 +289,8 @@ router.post('/forgotpass', async (req, res) => {
 
     try {
 
-        await sendMail(email, 'PFE CIMS mot de passe oublier', 'Bonjour', forgotPassMail(user._id))
-        return res.status(200).send({ result: 'mot de passe modifier' })
+        const result = await sendMail(email, 'PFE CIMS mot de passe oublier', 'Bonjour', forgotPassMail(user._id))
+        return res.status(200).send({ result })
     } catch (error) {
         return res.status(404).send({ error: err })
     }
