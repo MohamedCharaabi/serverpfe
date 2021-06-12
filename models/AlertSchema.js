@@ -13,6 +13,14 @@ export const alertSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    title: {
+        type: String,
+        required: true,
+    },
+    avatar: {
+        type: String,
+        // required: true,
+    },
     writedAt: {
         type: Date,
         default: Date.now

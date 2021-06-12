@@ -10,9 +10,9 @@ const router = express.Router();
 
 export const createAlert = async (req, res) => {
 
-    const { by, content } = req.body;
+    const { by, content, title, avatar } = req.body;
 
-    const newAlert = new Alert({ by, content })
+    const newAlert = new Alert({ by, content, title, avatar })
 
     try {
         await newAlert.save();
