@@ -12,7 +12,7 @@ export const themeRequetsSchema = new mongoose.Schema({
     },
     why: {
         type: String,
-        required: true,
+        // required: true,
     }
 
 
