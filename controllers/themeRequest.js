@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import express from 'express'
 
 import ThemeRequest from '../models/ThemeRequest.js';
+import Theme from '../models/Theme.js';
 
 
 const router = express.Router();
@@ -12,7 +13,15 @@ export const createThemeRequest = async (req, res) => {
 
     const { theme, creator, why } = req.body;
 
+    const themeexist = await Theme.findOne({ theme })
+    if (themeexist) {
+        return res.status(409).json({ 'message': 'theme existe' })
+    }
+
+
     const newThemeRequest = new ThemeRequest({ theme, creator, why })
+
+
 
     try {
         await newThemeRequest.save();
