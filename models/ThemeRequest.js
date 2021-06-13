@@ -18,4 +18,4 @@ export const themeRequetsSchema = new mongoose.Schema({
 
 })
 
-export default mongoose.model('Theme', themeRequetsSchema);
+export default mongoose.model('ThemeRequest', themeRequetsSchema);

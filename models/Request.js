@@ -20,7 +20,7 @@ export const requestSchema = new mongoose.Schema({
     },
     confDem: {
         type: String,
-        required: true,
+        // required: true,
     },
     etatDem: {
         type: Number,
@@ -28,7 +28,7 @@ export const requestSchema = new mongoose.Schema({
     },
     rmsqDem: {
         type: String,
-        required: true,
+        // required: true,
     },
     dateDem: {
         type: Date,
@@ -58,6 +58,12 @@ export const requestSchema = new mongoose.Schema({
     ser_name: {
         type: String,
         required: true,
+
+    },
+
+    code: {
+        type: String,
+        //required: true,
 
     },
     history: [{

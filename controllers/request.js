@@ -9,10 +9,22 @@ const router = express.Router();
 
 export const createRequest = async (req, res) => {
 
-    const { nomDem, prenomDem, emailDem, themeDem, confDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name } = req.body;
+    const { nomDem, prenomDem, emailDem, themeDem, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name } = req.body;
 
     const createHistory = { message: 'request creation' }
-    const newRequest = new Request({ nomDem, prenomDem, emailDem, themeDem, confDem: null, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name, history: createHistory })
+    var randomstring = Math.random().toString(36).slice(-8);
+
+    let checkCode = await Request.findOne({ code: randomstring })
+
+    while (checkCode) {
+        randomstring = Math.random().toString(36).slice(-8);
+
+        checkCode = await Request.findOne({ code: randomstring })
+
+    }
+
+
+    const newRequest = new Request({ code: randomstring, nomDem, prenomDem, emailDem, themeDem, confDem: null, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name, history: createHistory })
 
     try {
         await newRequest.save();
