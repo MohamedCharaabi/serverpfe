@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 import express from 'express'
 
+import Department from '../../models/stages/Department.js';
+import Direction from '../../models/stages/Direction.js';
+import Division from '../../models/stages/Division.js';
 import Service from '../../models/stages/Service.js';
 
 
@@ -71,7 +74,11 @@ export const updateService = async (req, res) => {
 export const deleteService = async (req, res) => {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Service with id: ${id}`);
+    const ser = await Service.findById(id)
+
+    if (!ser) return res.status(404).send(`No Service with id: ${id}`);
+
+    // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Service with id: ${id}`);
 
     await Service.findByIdAndRemove(id);
 
