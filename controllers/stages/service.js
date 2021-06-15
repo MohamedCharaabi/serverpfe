@@ -37,6 +37,15 @@ export const getServices = async (req, res) => {
 }
 
 
+export const getSersWithNoDirectors = async (req, res) => {
+    try {
+        const sers = await Service.find({ director: { $ne: true } });
+        return res.status(200).json(sers);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 
 export const getSer = async (req, res) => {

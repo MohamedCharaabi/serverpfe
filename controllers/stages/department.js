@@ -36,6 +36,15 @@ export const getDepartments = async (req, res) => {
     }
 }
 
+export const getDepsWithNoDirectors = async (req, res) => {
+    try {
+        const deps = await Department.find({ director: { $ne: true } });
+        return res.status(200).json(deps);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 
 

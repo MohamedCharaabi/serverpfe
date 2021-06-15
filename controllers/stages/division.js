@@ -26,6 +26,15 @@ export const createDivision = async (req, res) => {
 }
 
 
+export const getDivsWithNoDirectors = async (req, res) => {
+    try {
+        const divs = await Division.find({ director: { $ne: true } });
+        return res.status(200).json(divs);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 export const getDivisions = async (req, res) => {
     try {
