@@ -19,7 +19,11 @@ export const divisionSchema = new mongoose.Schema({
         ref: 'Direction',
         required: true,
         unique: true
-    }
+    },
+    director: {
+        type: Boolean,
+        default: false
+    },
 
 
 

@@ -11,7 +11,11 @@ export const directionSchema = new mongoose.Schema({
         type: String,
         ref: 'Department',
         required: true,
-    }
+    },
+    director: {
+        type: Boolean,
+        default: false
+    },
 
 
 

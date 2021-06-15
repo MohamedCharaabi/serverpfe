@@ -24,7 +24,11 @@ export const serviceSchema = new mongoose.Schema({
         required: true,
         unique: true
 
-    }
+    },
+    director: {
+        type: Boolean,
+        default: false
+    },
 
 
 

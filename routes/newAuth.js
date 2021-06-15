@@ -8,6 +8,12 @@ import { directorConfMail, forgotPassMail } from './constant.js'
 import { google } from 'googleapis'
 import dotenv from 'dotenv'
 
+
+import Department from '../models/stages/Department.js';
+import Direction from '../models/stages/Direction.js';
+import Division from '../models/stages/Division.js';
+import Service from '../models/stages/Service.js';
+
 dotenv.config()
 
 
@@ -105,18 +111,50 @@ router.post('/register', async (req, res) => {
         ]
     }
 
-    // var mailOptions = {
-    //     from: 'medfr333@gmail.com',
-    //     to: email,
-    //     subject: 'Confirmation of PFE-CIMS director',
-    //     html: directorConfMail(fullName, randomstring, email)
+    switch (rolePer) {
+        case 'dep':
+            await Department.findOneAndUpdate({ name: Dep }, { director: true })
+            break;
+        case 'dir':
+            await Direction.findOneAndUpdate({ name: Dir }, { director: true })
 
-    // };
+            break;
+        case 'div':
+            await Division.findOneAndUpdate({ name: Div }, { director: true })
 
+            break;
+        case 'ser':
+            await Service.findOneAndUpdate({ name: Ser }, { director: true })
+
+            break;
+
+        default:
+            break;
+    }
     //save 
     const user = new NewUser(userData);
     try {
         await user.save();
+        switch (rolePer) {
+            case 'dep':
+                await Department.findOneAndUpdate({ name: Dep }, { director: true })
+                break;
+            case 'dir':
+                await Direction.findOneAndUpdate({ name: Dir }, { director: true })
+
+                break;
+            case 'div':
+                await Division.findOneAndUpdate({ name: Div }, { director: true })
+
+                break;
+            case 'ser':
+                await Service.findOneAndUpdate({ name: Ser }, { director: true })
+
+                break;
+
+            default:
+                break;
+        }
         // transporter.sendMail(mailOptions)
         const result = await sendMail(email, 'Confirmation of PFE-CIMS director', 'Bonjour', directorConfMail(fullName, randomstring, email))
         return res.json({ user, result })
