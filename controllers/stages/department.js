@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 import express from 'express'
 
 import Department from '../../models/stages/Department.js';
+import Direction from '../../models/stages/Direction.js';
+import Division from '../../models/stages/Division.js';
+import Service from '../../models/stages/Service.js';
 
 
 const router = express.Router();
@@ -77,10 +80,17 @@ export const updateDepartment = async (req, res) => {
 
 export const deleteDepartment = async (req, res) => {
     const { id } = req.params;
+    const dep = await Department.findById(id)
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Department with id: ${id}`);
+    if (!dep) return res.status(404).send(`No Department with id: ${id}`);
+
+    // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Department with id: ${id}`);
 
     await Department.findByIdAndRemove(id);
+    await Direction.findOneAndRemove({ dep_name: dep.name });
+    await Division.findOneAndRemove({ dep_name: dep.name });
+    await Service.findOneAndRemove({ dep_name: dep.name });
+
 
     res.json({ message: "Department deleted successfully." });
 }
