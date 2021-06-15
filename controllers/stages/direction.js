@@ -38,8 +38,8 @@ export const getDirections = async (req, res) => {
 
 export const getDirectionsWithNoDirectors = async (req, res) => {
     try {
-        const directions = await Direction.find({ director: false });
-        res.status(200).json(directions);
+        const directions = await Direction.find({ director: { $ne: true } });
+        return res.status(200).json(directions);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
