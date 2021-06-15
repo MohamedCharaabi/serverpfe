@@ -54,14 +54,21 @@ export const getDep = async (req, res) => {
 
 export const updateDepartment = async (req, res) => {
     const { id } = req.params;
-    const { name, } = req.body;
+    const { name, director } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Department with id: ${id}`);
 
 
     const updatedDep = { name, _id: id };
 
+    if (director != null) {
+
+        await Department.findByIdAndUpdate(id, { name, director }, { new: true });
+        return res.status(200).json({ message: 'department modifier!!' });
+
+    }
     await Department.findByIdAndUpdate(id, updatedDep, { new: true });
+
 
     res.json(updatedDep);
 

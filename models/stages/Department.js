@@ -6,6 +6,10 @@ export const depSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    director: {
+        type: Boolean,
+        default: false
+    },
 
 
 })
