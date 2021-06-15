@@ -5,6 +5,7 @@ export const themeSchema = new mongoose.Schema({
     theme: {
         type: String,
         required: true,
+        unique: true
     },
     creator: {
         type: String,
