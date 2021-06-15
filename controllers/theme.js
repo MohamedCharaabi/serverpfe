@@ -12,13 +12,18 @@ export const createTheme = async (req, res) => {
 
     const { theme, creator, createdAt } = req.body;
 
+
+    const checkTheme = await Theme.findOne({ theme })
+    if (checkTheme) return res.status(409).json({ message: 'Theme existe' });
+
     const newTheme = new Theme({ theme, creator, createdAt })
+
 
     try {
         await newTheme.save();
-        res.status(200).json(newTheme);
+        return res.status(200).json(newTheme);
     } catch (error) {
-        res.status(409).json({ message: error.message });
+        return res.status(409).json({ message: error.message });
     }
 }
 
