@@ -33,7 +33,7 @@ app.use(cookieParser())
 //     origin: ['https://pfecims.web.app', 'http://localhost:3000', 'https://pfelanding.web.app', 'http://localhost:8000', 'http://localhost:4200', 'http://localhost:3001']  //3 react , 8 view, 42 angular
 // }));
 
-app.user(cors())
+app.use(cors())
 
 app.use("/request", requestRoutes);
 app.use("/personnel", personnelRoutes);

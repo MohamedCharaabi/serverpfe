@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer'
 
 import Request from '../models/Request.js'
 
-import { requestConfMail } from './requestConfEmail'
+import { requestConfMail } from './requestConfEmail.js'
 
 const router = express.Router();
 
