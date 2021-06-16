@@ -164,6 +164,7 @@ export const getRequestWithCode = async (req, res) => {
             email: request.emailDem,
             theme: request.themeDem,
             confirmation: request.confDem,
+            level: request.name,
             state: where,
         }
 
