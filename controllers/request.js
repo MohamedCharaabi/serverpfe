@@ -137,9 +137,8 @@ export const getRequestWithCode = async (req, res) => {
 
 
     try {
-
         const request = await Request.findOne({ code });
-        if (!request) return res.status(200).json({ message: 'wrong code ' })
+        if (!request) return res.status(404).json({ message: 'wrong code ' })
 
         return res.status(200).json(request)
 
