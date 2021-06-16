@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer'
 
 import Request from '../models/Request.js'
 
+import { requestConfMail } from './requestConfEmail'
 
 const router = express.Router();
 
@@ -84,7 +85,7 @@ export const createRequest = async (req, res) => {
 
     try {
         const request = await newRequest.save();
-        const result = await sendMail(emailDem, 'Confirmation of Demmande ', 'Bonjour', directorConfMail(`${nomDem} ${prenomDem}`, themeDem, request._id))
+        const result = await sendMail(emailDem, 'Confirmation of Demmande ', 'Bonjour', requestConfMail(`${nomDem} ${prenomDem}`, themeDem, request._id))
         return res.json({ newRequest, result })
         // res.status(200).json();
     } catch (error) {
