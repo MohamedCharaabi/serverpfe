@@ -33,7 +33,7 @@ const corsOptions = {
     origin: ['https://pfecims.web.app', 'http://localhost:3000', 'https://pfelanding.web.app', 'http://localhost:8000', 'http://localhost:4200', 'http://localhost:3001']  //3 react , 8 view, 42 angular
 }
 
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use("/request", requestRoutes);
 app.use("/personnel", personnelRoutes);
@@ -43,7 +43,7 @@ app.use("/dep", depRoutes);
 app.use("/dir", dirRoutes);
 app.use("/div", divRoutes);
 app.use("/ser", serRoutes);
-app.use("/new", cors(corsOptions), NewUserRoutes);
+app.use("/new", NewUserRoutes);
 app.use("/all", allLevelsRoutes);
 app.use("/stat", statisticsRoutes);
 app.use("/alert", alertsRoutes);
