@@ -66,6 +66,11 @@ export const requestSchema = new mongoose.Schema({
         //required: true,
 
     },
+    etat: {
+        type: String,
+        enum: ['active', 'disactive'],
+        default: 'disactive'
+    },
     history: [{
         message: {
             type: String,

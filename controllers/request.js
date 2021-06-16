@@ -1,10 +1,66 @@
 import mongoose from 'mongoose'
 import express from 'express'
+import { google } from 'googleapis'
+import nodemailer from 'nodemailer'
 
 import Request from '../models/Request.js'
 
 
 const router = express.Router();
+
+
+
+
+// These id's and secrets should come from .env file.
+
+
+const CLIENT_ID = '748723653612-0du6bb0s0rh74b6men3ric6uvbra1n6q.apps.googleusercontent.com'
+const CLEINT_SECRET = '7wNLkv9diMdhPbWOThcOB_91'
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+const REFRESH_TOKEN = '1//04pWQ4_p-dN2sCgYIARAAGAQSNwF-L9IroeaXB9ODWX808RDC9VJUu5XRLLBRE3tPimb5-yUMccnxLCCTDiSbVxQvtrkv39BHq1Q'
+
+
+const oAuth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLEINT_SECRET,
+    REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+
+const sendMail = async (adress, subject, text, html) => {
+
+    try {
+        const accessToken = await oAuth2Client.getAccessToken();
+
+        const transport = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'OAuth2',
+                user: 'medch373@gmail.com',
+                clientId: CLIENT_ID,
+                clientSecret: CLEINT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken,
+            },
+        });
+
+        const mailOptions = {
+            from: 'medch373@gmail.com',
+            to: adress,
+            subject,
+            text,
+            html,
+        };
+
+        const result = await transport.sendMail(mailOptions);
+        return result;
+    } catch (error) {
+        return error;
+    }
+}
+
+
+
 
 
 export const createRequest = async (req, res) => {
@@ -27,8 +83,10 @@ export const createRequest = async (req, res) => {
     const newRequest = new Request({ code: randomstring, nomDem, prenomDem, emailDem, themeDem, confDem: null, etatDem, rmsqDem, dateDem, name, dep_name, dir_name, div_name, ser_name, history: createHistory })
 
     try {
-        await newRequest.save();
-        res.status(200).json(newRequest);
+        const request = await newRequest.save();
+        const result = await sendMail(emailDem, 'Confirmation of Demmande ', 'Bonjour', directorConfMail(`${nomDem} ${prenomDem}`, themeDem, request._id))
+        return res.json({ newRequest, result })
+        // res.status(200).json();
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
