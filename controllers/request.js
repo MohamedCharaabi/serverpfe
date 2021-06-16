@@ -214,6 +214,24 @@ export const updateRequest = async (req, res) => {
 
 }
 
+export const activateRequest = async (req, res) => {
+    const { id } = req.params;
+
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No request with id: ${id}`);
+
+
+
+
+    await Request.findByIdAndUpdate(id, { etat: "active" }, { new: true })
+        .then(results => res.status(200).json(results))
+        .catch(error => res.status(404).json({ message: error.message }));;
+
+    // res.json(updatedRequest);
+
+
+}
+
 export const confirmEmail = async (req, res) => {
     const { id } = req.params;
 

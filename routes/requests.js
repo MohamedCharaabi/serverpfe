@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getRequests, createRequest, requestStatus, updateRequest, deleteRequest, getFiltretRequests, acceptRequest, refuseRequest, confirmEmail } from '../controllers/request.js'
+import { getRequests, createRequest, requestStatus, updateRequest, activateRequest, deleteRequest, getFiltretRequests, acceptRequest, refuseRequest, confirmEmail } from '../controllers/request.js'
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.patch('/:id', updateRequest);
 router.patch('/accept/:id', acceptRequest);
 router.patch('/refuse/:id', refuseRequest);
 router.patch('/confirmemail/:id', confirmEmail);
+router.patch('/activate/:id', activateRequest);
 
 router.delete('/:id', deleteRequest);
 
