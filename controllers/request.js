@@ -134,14 +134,18 @@ export const requestStatus = async (req, res) => {
 
 export const getRequestWithCode = async (req, res) => {
     const { code } = req.params;
+
+
     try {
 
         const request = await Request.findOne({ code });
-        res.status(200).json(request)
+        if (!request) return res.status(200).json({ message: 'wrong code ' })
+
+        return res.status(200).json(request)
 
 
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        return res.status(404).json({ message: error.message });
     }
 
 }
