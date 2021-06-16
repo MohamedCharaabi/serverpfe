@@ -140,7 +140,34 @@ export const getRequestWithCode = async (req, res) => {
         const request = await Request.findOne({ code });
         if (!request) return res.status(404).json({ message: 'wrong code ' })
 
-        return res.status(200).json(request)
+        let where = ''
+        switch (request.name) {
+            case 'dep':
+                where = request.dep_name
+
+                break;
+            case 'dir':
+                where = request.dir_name
+                break;
+            case 'div':
+                where = request.div_name
+                break;
+            case 'ser':
+                where = request.ser_name
+                break;
+            default:
+                break;
+        }
+
+        const result = {
+            fullName: request.nomDem + request.prenomDem,
+            email: request.emailDem,
+            theme: request.themeDem,
+            confirmation: request.confDem,
+            state: where,
+        }
+
+        return res.status(200).json(result)
 
 
     } catch (error) {
