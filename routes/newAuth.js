@@ -179,14 +179,14 @@ router.post('/login', async (req, res) => {
     const user = await NewUser.findOne({ email })
 
     if (!user) {
-        return res.status(404).send({
-            message: 'Invalid Email'
+        return res.status(404).json({
+            message: 'Mauvais Email'
         })
     }
 
     if (password !== user.password) {
-        return res.status(400).send({
-            message: 'invalid password'
+        return res.status(400).json({
+            message: 'Mauvais mot de passe'
         })
     }
 
@@ -216,7 +216,7 @@ router.post('/login', async (req, res) => {
 
         }
     } else {
-        res.status(404).send({ message: 'user is undefined' })
+        res.status(404).json({ message: 'utilisateur undéfinie' })
     }
 
 
