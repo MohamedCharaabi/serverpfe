@@ -7,6 +7,10 @@ export const themeSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    logo: {
+        type: String,
+        default: ''
+    },
     creator: {
         type: String,
         required: true,

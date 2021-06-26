@@ -73,6 +73,22 @@ export const updateTheme = async (req, res) => {
 
 
 }
+export const updateThemeLogo = async (req, res) => {
+    const { id } = req.params;
+    const { logo } = req.body;
+
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Theme with id: ${id}`);
+
+
+    const updatedTheme = { logo, _id: id };
+
+    await Theme.findByIdAndUpdate(id, updatedTheme, { new: true });
+
+    res.json(updatedTheme);
+
+
+}
 
 export const deleteTheme = async (req, res) => {
     const { id } = req.params;
