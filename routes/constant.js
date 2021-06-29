@@ -583,7 +583,7 @@ export const forgotPassMail = function (iduser) {
                                                                                     </td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <td class="esd-block-button es-p40t es-p40b es-p10r es-p10l" align="center"><span class="es-button-border"><a href="https://localhost:3000/resetpass/${iduser}" class="es-button" target="_blank">réinitialiser le mot de passe</a></span></td>
+                                                                                    <td class="esd-block-button es-p40t es-p40b es-p10r es-p10l" align="center"><span class="es-button-border"><a href="https://pfe-cims.web.app/resetpass/${iduser}" class="es-button" target="_blank">réinitialiser le mot de passe</a></span></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
