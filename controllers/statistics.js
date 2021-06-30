@@ -32,7 +32,7 @@ export const allStat = async (req, res) => {
         {
             $sort: { count: -1 },
         },
-        { $limit: 5 }
+        { $limit: 4 }
     ]);
 
     const monthRequest = await Request.aggregate([
